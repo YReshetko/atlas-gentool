@@ -73,6 +73,7 @@ RUN go install github.com/infobloxopen/protoc-gen-atlas-query-validate
 # Download all dependencies of protoc-gen-atlas-validate
 RUN cd ${GOPATH}/src/github.com/infobloxopen/protoc-gen-atlas-validate && dep ensure -vendor-only
 RUN go install github.com/infobloxopen/protoc-gen-atlas-validate
+RUN go install github.com/YReshetko/protoc-gen-roles
 
 RUN mkdir -p /out/usr/bin
 
@@ -119,5 +120,7 @@ ENTRYPOINT ["protoc", "-I.", \
     # required import paths for protoc-gen-preprocess plugin
     "-Igithub.com/infobloxopen/protoc-gen-preprocess", \
     # required import paths for protoc-gen-atlas-validate plugin
-    "-Igithub.com/infobloxopen/protoc-gen-atlas-validate" \
+    "-Igithub.com/infobloxopen/protoc-gen-atlas-validate", \
+    # required import paths for protoc-gen-roles plugin
+    "-Igithub.com/YReshetko/protoc-gen-roles" \
 ]
