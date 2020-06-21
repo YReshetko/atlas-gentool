@@ -1,5 +1,5 @@
 # The docker image to generate Golang code from Protol Buffer.
-FROM golang:1.10-alpine as builder
+FROM golang:1.14-alpine as builder
 LABEL intermediate=true
 MAINTAINER DL NGP-App-Infra-API <ngp-app-infra-api@infoblox.com>
 
@@ -49,6 +49,7 @@ RUN sed -e "s/@AATVersion/$AAT_VERSION/" \
 RUN glide up --skip-test
 RUN cp -r vendor/* ${GOPATH}/src/
 
+RUN go get github.com/golang/protobuf/protoc-gen-go
 RUN go install github.com/golang/protobuf/protoc-gen-go
 RUN go install github.com/gogo/protobuf/protoc-gen-combo
 RUN go install github.com/gogo/protobuf/protoc-gen-gofast
